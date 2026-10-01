@@ -71,6 +71,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const token = await AsyncStorage.getItem(TOKEN_KEY);
       if (!token) {
+        // No-login mode (backend EXCEEDBOX_OPEN_ACCESS_EMAIL, 2026-10-01): a server that
+        // answers /api/me without a token has sign-in switched off, so go straight in.
+        // A normal server 401s here and we fall through to the sign-in screen as before.
+        if (!MOCKS_ENABLED) {
+          try {
+            setAuthToken(null);
+            const openMe = await api.getMe();
+            await applySession(null, openMe);
+            return;
+          } catch {
+            // login required — fall through
+          }
+        }
         await applySession(null, null);
         return;
       }
