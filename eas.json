@@ -1,0 +1,47 @@
+{
+  "cli": {
+    "version": ">= 20.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      },
+      "channel": "development",
+      "env": {
+        "EXPO_PUBLIC_ALLOW_MOCKS": "1",
+        "EXPO_PUBLIC_USE_MOCKS": "1"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "EXPO_PUBLIC_ALLOW_MOCKS": "1",
+        "EXPO_PUBLIC_USE_MOCKS": "1"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "channel": "production",
+      "ios": {
+        "resourceClass": "m-medium"
+      },
+      "env": {}
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleTeamId": "6KM9J3N728",
+        "ascAppId": "6802226054",
+        "ascApiKeyPath": "/Users/a44/.appstoreconnect/private_keys/AuthKey_93PG7P7YRK.p8",
+        "ascApiKeyId": "93PG7P7YRK",
+        "ascApiKeyIssuerId": "174d3d11-b97d-482f-ab11-e53b248fd4e2"
+      }
+    }
+  }
+}

@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exceed Box — iPad login concepts</title>
+  <style>
+    :root {
+      --charcoal: #15171c;
+      --surface: #1c1f26;
+      --border: #2f3340;
+      --yellow: #ffd84d;
+      --gold: #f0b429;
+      --light: #f6f7f9;
+      --soft: #eeeff2;
+      --muted: #c9cdd6;
+      --page: #282b31;
+      --ink: #15171c;
+      --landscape-width: 640px;
+      --portrait-width: 382px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    html { background: var(--page); }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--page);
+      color: var(--light);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .page-header {
+      width: min(100% - 48px, 2680px);
+      margin: 0 auto;
+      padding: 52px 0 30px;
+      border-bottom: 1px solid #3a3e47;
+    }
+
+    .page-eyebrow {
+      margin: 0 0 10px;
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .page-header h1 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 730;
+      letter-spacing: -.035em;
+    }
+
+    .page-header p:last-child {
+      max-width: 720px;
+      margin: 12px 0 0;
+      color: #aeb3be;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .orientation-section {
+      width: min(100% - 48px, 2680px);
+      margin: 0 auto;
+      padding: 42px 0 66px;
+    }
+
+    .orientation-section + .orientation-section {
+      border-top: 1px solid #3a3e47;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin: 0 0 28px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      color: #f6f7f9;
+      font-size: 20px;
+      font-weight: 720;
+      letter-spacing: -.02em;
+    }
+
+    .section-heading span {
+      color: #8f95a0;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .06em;
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 34px 26px;
+      align-items: start;
+    }
+
+    .concept { min-width: 0; }
+
+    .concept.landscape { width: var(--landscape-width); }
+    .concept.portrait { width: var(--portrait-width); }
+
+    .concept-meta {
+      min-height: 88px;
+      padding: 0 4px 16px;
+    }
+
+    .concept-title {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      margin: 0 0 8px;
+    }
+
+    .concept-id {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .15em;
+    }
+
+    .concept-title h3 {
+      margin: 0;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 720;
+      letter-spacing: -.015em;
+    }
+
+    .concept-meta p,
+    .concept-note {
+      margin: 0;
+      color: #aeb3be;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .concept-note {
+      min-height: 58px;
+      padding: 15px 4px 0;
+    }
+
+    .concept-note strong { color: #d7dae0; font-weight: 700; }
+
+    .ipad {
+      position: relative;
+      overflow: hidden;
+      border: 7px solid #090a0c;
+      border-radius: 25px;
+      background: #090a0c;
+      box-shadow: 0 18px 42px rgba(0,0,0,.34), 0 0 0 1px #51555d;
+      isolation: isolate;
+    }
+
+    .landscape .ipad {
+      width: var(--landscape-width);
+      height: calc(var(--landscape-width) * .74963);
+    }
+
+    .portrait .ipad {
+      width: var(--portrait-width);
+      height: calc(var(--portrait-width) * 1.33398);
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--charcoal);
+      color: var(--light);
+    }
+
+    .status-bar {
+      position: absolute;
+      z-index: 30;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 17px;
+      color: currentColor;
+      font-size: 7px;
+      font-weight: 720;
+      letter-spacing: .01em;
+      pointer-events: none;
+    }
+
+    .portrait .status-bar {
+      height: 28px;
+      padding: 0 15px;
+      font-size: 7px;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-right svg { display: block; }
+
+    .home-indicator {
+      position: absolute;
+      z-index: 40;
+      left: 50%;
+      bottom: 5px;
+      width: 62px;
+      height: 3px;
+      border-radius: 99px;
+      background: currentColor;
+      transform: translateX(-50%);
+      opacity: .84;
+      pointer-events: none;
+    }
+
+    .light-screen { color: var(--charcoal); }
+
+    .landscape .split-status .status-bar > span:first-child,
+    .portrait .split-status .status-bar { color: var(--light); }
+
+    .landscape .split-status .status-bar > span:last-child { color: var(--charcoal); }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      line-height: 1;
+    }
+
+    .wordmark strong {
+      color: var(--yellow);
+      font-size: 17px;
+      font-weight: 850;
+      letter-spacing: .23em;
+    }
+
+    .wordmark small {
+      color: #8f95a2;
+      font-size: 7px;
+      font-weight: 800;
+      letter-spacing: .2em;
+    }
+
+    .wordmark.large { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .wordmark.large strong { font-size: 28px; letter-spacing: .25em; }
+    .wordmark.large small { font-size: 10px; letter-spacing: .36em; }
+
+    .login-form {
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .form-heading { margin-bottom: 18px; }
+
+    .form-heading h4 {
+      margin: 0;
+      color: inherit;
+      font-size: 21px;
+      font-weight: 740;
+      letter-spacing: -.035em;
+    }
+
+    .form-heading p {
+      margin: 6px 0 0;
+      color: #8f95a2;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .google-button,
+    .primary-button {
+      position: relative;
+      width: 100%;
+      min-height: 55px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 100ms ease, background-color 100ms ease, border-color 100ms ease, box-shadow 100ms ease, opacity 100ms ease;
+    }
+
+    .google-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid #d9dce2;
+      background: #fff;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 720;
+      box-shadow: 0 3px 8px rgba(21,23,28,.1);
+    }
+
+    .dark-form .google-button {
+      border-color: #555b68;
+      background: #f9fafb;
+    }
+
+    .google-button:active,
+    .primary-button:active:not(:disabled) { transform: scale(.985); }
+    .google-button:active { background: var(--soft); }
+
+    .google-mark { width: 18px; height: 18px; flex: 0 0 auto; }
+
+    .button-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      line-height: 1.05;
+    }
+
+    .button-copy small {
+      color: #686e79;
+      font-size: 8px;
+      font-weight: 570;
+    }
+
+    .account-caption {
+      margin: 7px 0 0;
+      color: #818793;
+      text-align: center;
+      font-size: 8px;
+      line-height: 1.25;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 14px 0;
+      color: #7b818d;
+      font-size: 9px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: currentColor;
+      opacity: .34;
+    }
+
+    .fields { display: grid; gap: 11px; }
+
+    .field { display: block; }
+
+    .field-label {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin: 0 0 6px;
+      color: inherit;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .field-label small {
+      color: #858b96;
+      font-size: 8px;
+      font-weight: 560;
+    }
+
+    .field-shell { position: relative; }
+
+    .field input {
+      width: 100%;
+      min-height: 53px;
+      padding: 0 15px;
+      border: 1px solid #cdd1d8;
+      border-radius: 9px;
+      outline: 0;
+      background: #fff;
+      color: var(--ink);
+      font-size: 12px;
+      transition: border-color 100ms ease, box-shadow 100ms ease, background-color 100ms ease;
+    }
+
+    .field.password input { padding-right: 52px; }
+
+    .dark-form .field input {
+      border-color: var(--border);
+      background: var(--charcoal);
+      color: var(--light);
+    }
+
+    .field input::placeholder { color: #8e949f; opacity: 1; }
+
+    .field input:focus,
+    .field.demo-focus input {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(255,216,77,.31);
+    }
+
+    .field input:focus:not(:focus-visible) {
+      box-shadow: 0 0 0 3px rgba(255,216,77,.31);
+    }
+
+    .eye-toggle {
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #69707d;
+      cursor: pointer;
+      transform: translateY(-50%);
+    }
+
+    .eye-toggle svg { width: 17px; height: 17px; }
+
+    .google-button:focus-visible,
+    .primary-button:focus-visible,
+    .eye-toggle:focus-visible,
+    .forgot:focus-visible,
+    .progressive-back:focus-visible {
+      outline: 3px solid rgba(255,216,77,.58);
+      outline-offset: 2px;
+    }
+
+    .primary-button {
+      margin-top: 13px;
+      border: 0;
+      background: var(--yellow);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 2px 0 #bd9610;
+    }
+
+    .primary-button:active:not(:disabled) {
+      background: #f5cb35;
+      box-shadow: none;
+    }
+
+    .primary-button:disabled {
+      cursor: not-allowed;
+      opacity: .34;
+      box-shadow: none;
+    }
+
+    .primary-button .ja {
+      display: block;
+      margin-top: 2px;
+      font-size: 8px;
+      font-weight: 620;
+      opacity: .68;
+    }
+
+    .forgot-row { margin-top: 10px; text-align: center; }
+
+    .forgot {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 5px;
+      min-height: 44px;
+      padding: 13px 7px;
+      border-radius: 7px;
+      color: #626975;
+      font-size: 9px;
+      font-weight: 680;
+      text-decoration: none;
+    }
+
+    .dark-form .forgot { color: #b3b8c2; }
+    .forgot small { color: #8c929d; font-size: 7px; font-weight: 560; }
+
+    .version {
+      position: absolute;
+      z-index: 15;
+      right: 16px;
+      bottom: 13px;
+      color: #858b96;
+      font-size: 7px;
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+
+    .brand-block {
+      background: var(--charcoal);
+      color: var(--light);
+    }
+
+    .brand-headline {
+      margin: 34px 0 0;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 740;
+      line-height: 1.05;
+      letter-spacing: -.05em;
+    }
+
+    .brand-headline em { color: var(--yellow); font-style: normal; }
+
+    .brand-subline {
+      max-width: 290px;
+      margin: 15px 0 0;
+      color: #9da3af;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    /* V1 — enterprise split */
+    .v1-layout {
+      display: grid;
+      grid-template-columns: 47% 53%;
+      min-height: 100%;
+      background: var(--light);
+    }
+
+    .v1-brand {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 42px 44px;
+    }
+
+    .v1-brand::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 52px;
+      height: 9px;
+      background: var(--yellow);
+    }
+
+    .v1-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 42px 38px 30px;
+      color: var(--ink);
+    }
+
+    .v1-login .login-form { max-width: 350px; }
+
+    /* V2 — centred raised card */
+    .v2-layout {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 36px 30px 28px;
+      background: var(--charcoal);
+    }
+
+    .v2-card {
+      width: min(100%, 365px);
+      padding: 24px 29px 20px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
+    }
+
+    .v2-card .wordmark { margin-bottom: 18px; }
+    .v2-card .google-button { min-height: 53px; }
+    .v2-card .fields { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .v2-card .field input { min-height: 50px; }
+    .v2-card .primary-button { min-height: 51px; margin-top: 11px; }
+    .v2-card .forgot-row { margin-top: 3px; }
+    .v2-card .forgot { min-height: 37px; padding-block: 9px; }
+
+    /* V3 — light side panel */
+    .v3-layout {
+      display: grid;
+      grid-template-columns: 55% 45%;
+      min-height: 100%;
+      background: var(--charcoal);
+    }
+
+    .v3-brand {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 56px 48px 44px;
+    }
+
+    .v3-brand .brand-headline { max-width: 320px; margin-top: 0; font-size: 29px; }
+
+    .office-note {
+      display: flex;
+      gap: 24px;
+      color: #8d939e;
+      font-size: 8px;
+      font-weight: 650;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .v3-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 42px 34px 30px;
+      background: var(--light);
+      color: var(--ink);
+    }
+
+    .v3-panel .login-form { max-width: 350px; }
+
+    /* V4 — progressive */
+    .v4-layout {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 42px 30px 32px;
+      background: var(--charcoal);
+    }
+
+    .progressive {
+      width: min(100%, 336px);
+      color: var(--light);
+    }
+
+    .progressive-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .steps { display: flex; gap: 6px; }
+
+    .step {
+      width: 34px;
+      height: 4px;
+      border-radius: 99px;
+      background: var(--border);
+    }
+
+    .step.active { background: var(--yellow); }
+
+    .step-label {
+      color: #8f95a2;
+      font-size: 8px;
+      font-weight: 650;
+      letter-spacing: .06em;
+    }
+
+    .progressive h4 {
+      margin: 0;
+      color: #fff;
+      font-size: 26px;
+      font-weight: 740;
+      letter-spacing: -.045em;
+    }
+
+    .progressive .question-ja {
+      margin: 6px 0 20px;
+      color: #8f95a2;
+      font-size: 9px;
+    }
+
+    .progressive .google-button { margin-bottom: 0; }
+    .progressive .divider { margin: 14px 0; }
+    .progressive .primary-button { margin-top: 13px; }
+
+    .progressive-back {
+      display: none;
+      min-height: 44px;
+      margin: 6px 0 0 -11px;
+      padding: 0 11px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #aeb3be;
+      font-size: 9px;
+      cursor: pointer;
+    }
+
+    .progressive[data-step="2"] .progressive-back { display: inline-flex; align-items: center; }
+    .progressive .forgot-row { display: none; }
+    .progressive[data-step="2"] .forgot-row { display: block; }
+    .progressive[data-step="2"] .field input { padding-right: 52px; }
+    .progressive[data-step="2"] .google-door,
+    .progressive[data-step="2"] .divider { display: none; }
+
+    /* Software keyboard proof on V4 landscape */
+    .with-keyboard .v4-layout {
+      align-items: flex-start;
+      padding-top: 45px;
+      padding-bottom: 170px;
+    }
+
+    .with-keyboard .progressive { width: min(100%, 330px); }
+    .with-keyboard .progressive-top { margin-bottom: 16px; }
+    .with-keyboard .progressive h4 { font-size: 22px; }
+    .with-keyboard .question-ja { margin-bottom: 11px; }
+    .with-keyboard .google-button { min-height: 48px; }
+    .with-keyboard .field input { min-height: 49px; }
+    .with-keyboard .primary-button { min-height: 49px; }
+
+    .software-keyboard {
+      position: absolute;
+      z-index: 20;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 151px;
+      padding: 8px 11px 14px;
+      border-top: 1px solid #858a92;
+      background: #b9bdc4;
+      color: #181a1e;
+    }
+
+    .keyboard-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 20px;
+      padding: 0 5px;
+      color: #42464d;
+      font-size: 7px;
+      font-weight: 700;
+    }
+
+    .keyboard-tools span { display: flex; gap: 12px; }
+
+    .key-row {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+    .key {
+      min-width: 49px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: #fff;
+      box-shadow: 0 1px 0 #777b82;
+      font-size: 9px;
+      font-weight: 520;
+    }
+
+    .key.action { min-width: 65px; background: #9499a1; font-size: 7px; }
+    .key.space { width: 248px; }
+    .key.return { min-width: 92px; background: #7a7f87; color: #fff; }
+
+    /* Portrait adaptations */
+    .portrait .wordmark strong { font-size: 14px; }
+    .portrait .wordmark small { font-size: 6px; }
+    .portrait .google-button,
+    .portrait .primary-button { min-height: 49px; }
+    .portrait .field input { min-height: 48px; }
+    .portrait .form-heading { margin-bottom: 14px; }
+    .portrait .form-heading h4 { font-size: 18px; }
+    .portrait .divider { margin: 12px 0; }
+    .portrait .fields { gap: 9px; }
+    .portrait .primary-button { margin-top: 10px; }
+    .portrait .forgot-row { margin-top: 2px; }
+    .portrait .forgot { min-height: 38px; padding-block: 9px; }
+    .portrait .version { right: 13px; bottom: 12px; }
+
+    .portrait .v1-layout {
+      grid-template-columns: 1fr;
+      grid-template-rows: 34% 66%;
+    }
+
+    .portrait .v1-brand {
+      justify-content: flex-end;
+      padding: 37px 31px 25px;
+    }
+
+    .portrait .wordmark.large { gap: 5px; }
+    .portrait .wordmark.large strong { font-size: 20px; }
+    .portrait .wordmark.large small { font-size: 7px; }
+    .portrait .brand-headline { margin-top: 20px; font-size: 25px; }
+    .portrait .brand-headline br { display: none; }
+    .portrait .brand-headline span { display: block; }
+    .portrait .brand-subline { display: none; }
+
+    .portrait .v1-login {
+      align-items: flex-start;
+      padding: 29px 31px 34px;
+    }
+
+    .portrait .v2-layout { padding: 47px 22px 36px; }
+    .portrait .v2-card { width: 100%; padding: 24px 23px 18px; border-radius: 15px; }
+    .portrait .v2-card .fields { grid-template-columns: 1fr; gap: 9px; }
+    .portrait .v2-card .wordmark { margin-bottom: 18px; }
+
+    .portrait .v3-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 36% 64%;
+    }
+
+    .portrait .v3-brand {
+      padding: 40px 31px 24px;
+      justify-content: flex-end;
+    }
+
+    .portrait .v3-brand .brand-headline { font-size: 23px; }
+    .portrait .office-note { display: none; }
+    .portrait .v3-panel {
+      align-items: flex-start;
+      padding: 30px 31px 35px;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .portrait .v4-layout { padding: 48px 27px 40px; }
+    .portrait .progressive { width: 100%; }
+    .portrait .progressive-top { margin-bottom: 34px; }
+    .portrait .progressive h4 { font-size: 25px; }
+
+    @media (max-width: 2740px) {
+      .concept-grid { overflow-x: auto; grid-template-columns: repeat(4, max-content); padding-bottom: 16px; }
+    }
+
+    @media (max-width: 720px) {
+      .page-header,
+      .orientation-section { width: min(100% - 24px, 2680px); }
+      .page-header { padding-top: 34px; }
+      .orientation-section { padding-top: 32px; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <p class="page-eyebrow">Exceed Box · iPadOS</p>
+    <h1>Login directions for the room, not the pocket.</h1>
+    <p>Four employee-only access patterns built for a manager’s iPad and a landscape showroom device in Japan.</p>
+  </header>
+
+  <main>
+    <section class="orientation-section" aria-labelledby="landscape-heading">
+      <div class="section-heading">
+        <h2 id="landscape-heading">Landscape first</h2>
+        <span>1366 × 1024 · showroom stand / manager desk</span>
+      </div>
+
+      <div class="concept-grid">
+        <article class="concept landscape">
+          <header class="concept-meta">
+            <div class="concept-title"><span class="concept-id">V1</span><h3>Split</h3></div>
+            <p>Pick for the clearest enterprise hierarchy and strongest brand arrival.</p>
+          </header>
+          <div class="ipad">
+            <div class="screen light-screen split-status">
+              <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+              <div class="v1-layout">
+                <section class="v1-brand brand-block">
+                  <div class="wordmark large"><strong>EXCEED</strong><small>BOX</small></div>
+                  <h4 class="brand-headline">Your deals.<br>Your clients.<br><em>One place.</em></h4>
+                  <p class="brand-subline">Secure workspace access for the Exceed team in Dubai and Tokyo.</p>
+                </section>
+                <section class="v1-login">
+                  <form class="login-form" data-auth-form>
+                    <div class="form-heading"><h4>Welcome back</h4><p>社内アカウントでログインしてください</p></div>
+                    <button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button>
+                    <p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p>
+                    <div class="divider">or</div>
+                    <div class="fields">
+                      <label class="field demo-focus"><span class="field-label">Email <small>メールアドレス</small></span><span class="field-shell"><input name="email" type="email" autocomplete="username" placeholder="name@exceed-realestate.jp" aria-label="Email"></span></label>
+                      <label class="field password"><span class="field-label">Password <small>パスワード</small></span><span class="field-shell"><input name="password" type="password" autocomplete="current-password" placeholder="Enter password" aria-label="Password"><button class="eye-toggle" type="button" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label>
+                    </div>
+                    <button class="primary-button" type="submit" disabled>Sign in<span class="ja">ログイン</span></button>
+                    <div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div>
+                  </form>
+                </section>
+              </div>
+              <span class="version">v1.0.0</span><span class="home-indicator"></span>
+            </div>
+          </div>
+          <p class="concept-note"><strong>From iPhone:</strong> the stacked OpenPhone hierarchy becomes a true two-zone workspace; the form stays a deliberate 440px maximum.</p>
+        </article>
+
+        <article class="concept landscape">
+          <header class="concept-meta"><div class="concept-title"><span class="concept-id">V2</span><h3>Centred card</h3></div><p>Pick for a focused, familiar sign-in with the calmest visual footprint.</p></header>
+          <div class="ipad">
+            <div class="screen">
+              <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+              <div class="v2-layout">
+                <form class="v2-card login-form dark-form" data-auth-form>
+                  <div class="wordmark"><strong>EXCEED</strong><small>BOX</small></div>
+                  <button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button>
+                  <p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p>
+                  <div class="divider">or</div>
+                  <div class="fields">
+                    <label class="field"><span class="field-label">Email <small>メールアドレス</small></span><span class="field-shell"><input name="email" type="email" autocomplete="username" placeholder="name@exceed.ae" aria-label="Email"></span></label>
+                    <label class="field password"><span class="field-label">Password <small>パスワード</small></span><span class="field-shell"><input name="password" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password"><button class="eye-toggle" type="button" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label>
+                  </div>
+                  <button class="primary-button" type="submit" disabled>Sign in<span class="ja">ログイン</span></button>
+                  <div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div>
+                </form>
+              </div>
+              <span class="version">v1.0.0</span><span class="home-indicator"></span>
+            </div>
+          </div>
+          <p class="concept-note"><strong>From iPhone:</strong> the YNAB ordering is preserved inside a raised, purposefully sized card with generous charcoal breathing room.</p>
+        </article>
+
+        <article class="concept landscape">
+          <header class="concept-meta"><div class="concept-title"><span class="concept-id">V3</span><h3>Sheet becomes a panel</h3></div><p>Pick for showroom use: brand faces the visitor while login stays agent-side.</p></header>
+          <div class="ipad">
+            <div class="screen light-screen split-status">
+              <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+              <div class="v3-layout">
+                <section class="v3-brand brand-block">
+                  <div><div class="wordmark large"><strong>EXCEED</strong><small>BOX</small></div><h4 class="brand-headline">Welcome to the team workspace.</h4></div>
+                  <div class="office-note"><span>Dubai · HQ</span><span>Tokyo · Office</span></div>
+                </section>
+                <section class="v3-panel">
+                  <form class="login-form" data-auth-form>
+                    <div class="form-heading"><h4>Sign in</h4><p>ログイン</p></div>
+                    <button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button>
+                    <p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p>
+                    <div class="divider">or</div>
+                    <div class="fields">
+                      <label class="field"><span class="field-label">Email <small>メールアドレス</small></span><span class="field-shell"><input name="email" type="email" autocomplete="username" placeholder="name@exceed.ae" aria-label="Email"></span></label>
+                      <label class="field password"><span class="field-label">Password <small>パスワード</small></span><span class="field-shell"><input name="password" type="password" autocomplete="current-password" placeholder="Enter password" aria-label="Password"><button class="eye-toggle" type="button" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label>
+                    </div>
+                    <button class="primary-button" type="submit" disabled>Sign in<span class="ja">ログイン</span></button>
+                    <div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div>
+                  </form>
+                </section>
+              </div>
+              <span class="version">v1.0.0</span><span class="home-indicator"></span>
+            </div>
+          </div>
+          <p class="concept-note"><strong>From iPhone:</strong> the bottom sheet moves to an edge-to-edge right panel, preventing wasted width and keeping the form within reach.</p>
+        </article>
+
+        <article class="concept landscape">
+          <header class="concept-meta"><div class="concept-title"><span class="concept-id">V4</span><h3>Progressive, centred</h3></div><p>Pick for the least intimidating path—and to handle the software keyboard safely.</p></header>
+          <div class="ipad with-keyboard">
+            <div class="screen">
+              <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+              <div class="v4-layout">
+                <form class="progressive dark-form" data-progressive data-step="1">
+                  <div class="progressive-top"><div class="wordmark"><strong>EXCEED</strong><small>BOX</small></div><div><div class="steps"><span class="step active"></span><span class="step"></span></div><span class="step-label">1 OF 2</span></div></div>
+                  <h4 data-question>What’s your work email?</h4><p class="question-ja" data-question-ja>メールアドレスを入力してください</p>
+                  <div class="google-door"><button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button><p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p></div>
+                  <div class="divider">or</div>
+                  <label class="field demo-focus"><span class="field-label" data-field-label>Email <small>メールアドレス</small></span><span class="field-shell"><input name="progressive-input" type="email" autocomplete="username" placeholder="name@exceed.ae" aria-label="Email"><button class="eye-toggle" type="button" aria-label="Show password" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label>
+                  <button class="primary-button" type="submit" disabled><span data-progressive-button>Continue</span><span class="ja" data-progressive-button-ja>次へ</span></button>
+                  <div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div>
+                  <button class="progressive-back" type="button">← Back / 戻る</button>
+                </form>
+              </div>
+              <div class="software-keyboard" aria-label="iPad software keyboard shown">
+                <div class="keyboard-tools"><span>⌨︎&nbsp;&nbsp; Aa</span><span>↶&nbsp; ↷</span></div>
+                <div class="key-row"><span class="key">Q</span><span class="key">W</span><span class="key">E</span><span class="key">R</span><span class="key">T</span><span class="key">Y</span><span class="key">U</span><span class="key">I</span><span class="key">O</span><span class="key">P</span></div>
+                <div class="key-row"><span class="key">A</span><span class="key">S</span><span class="key">D</span><span class="key">F</span><span class="key">G</span><span class="key">H</span><span class="key">J</span><span class="key">K</span><span class="key">L</span></div>
+                <div class="key-row"><span class="key action">123</span><span class="key">Z</span><span class="key">X</span><span class="key">C</span><span class="key">V</span><span class="key">B</span><span class="key">N</span><span class="key">M</span><span class="key action">⌫</span></div>
+                <div class="key-row"><span class="key action">🌐</span><span class="key space">space</span><span class="key return">Next</span></div>
+              </div>
+              <span class="version">v1.0.0</span><span class="home-indicator"></span>
+            </div>
+          </div>
+          <p class="concept-note"><strong>From iPhone:</strong> the single-task rhythm stays centred in a narrow column; this state proves the keyboard never obscures the active field.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="orientation-section" aria-labelledby="portrait-heading">
+      <div class="section-heading"><h2 id="portrait-heading">Portrait companion</h2><span>1024 × 1366 · handheld manager review</span></div>
+      <div class="concept-grid">
+        <article class="concept portrait">
+          <header class="concept-meta"><div class="concept-title"><span class="concept-id">V1</span><h3>Split</h3></div><p>Pick when brand hierarchy matters, even when the device rotates.</p></header>
+          <div class="ipad"><div class="screen light-screen split-status">
+            <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+            <div class="v1-layout"><section class="v1-brand brand-block"><div class="wordmark large"><strong>EXCEED</strong><small>BOX</small></div><h4 class="brand-headline"><span>Your deals. Your clients.</span> <em>One place.</em></h4></section><section class="v1-login"><form class="login-form" data-auth-form>
+              <div class="form-heading"><h4>Welcome back</h4><p>社内アカウントでログインしてください</p></div>
+              <button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button><p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p><div class="divider">or</div>
+              <div class="fields"><label class="field"><span class="field-label">Email <small>メールアドレス</small></span><span class="field-shell"><input name="email" type="email" autocomplete="username" placeholder="name@exceed.ae" aria-label="Email"></span></label><label class="field password"><span class="field-label">Password <small>パスワード</small></span><span class="field-shell"><input name="password" type="password" autocomplete="current-password" placeholder="Enter password" aria-label="Password"><button class="eye-toggle" type="button" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label></div>
+              <button class="primary-button" type="submit" disabled>Sign in<span class="ja">ログイン</span></button><div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div>
+            </form></section></div><span class="version">v1.0.0</span><span class="home-indicator"></span>
+          </div></div>
+          <p class="concept-note"><strong>From iPhone:</strong> the side split turns into a branded top zone, retaining scale without narrowing the form into a phone layout.</p>
+        </article>
+
+        <article class="concept portrait">
+          <header class="concept-meta"><div class="concept-title"><span class="concept-id">V2</span><h3>Centred card</h3></div><p>Pick for consistent focus in either orientation.</p></header>
+          <div class="ipad"><div class="screen">
+            <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+            <div class="v2-layout"><form class="v2-card login-form dark-form" data-auth-form><div class="wordmark"><strong>EXCEED</strong><small>BOX</small></div>
+              <button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button><p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p><div class="divider">or</div>
+              <div class="fields"><label class="field"><span class="field-label">Email <small>メールアドレス</small></span><span class="field-shell"><input name="email" type="email" autocomplete="username" placeholder="name@exceed.ae" aria-label="Email"></span></label><label class="field password"><span class="field-label">Password <small>パスワード</small></span><span class="field-shell"><input name="password" type="password" autocomplete="current-password" placeholder="Enter password" aria-label="Password"><button class="eye-toggle" type="button" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label></div>
+              <button class="primary-button" type="submit" disabled>Sign in<span class="ja">ログイン</span></button><div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div>
+            </form></div><span class="version">v1.0.0</span><span class="home-indicator"></span>
+          </div></div>
+          <p class="concept-note"><strong>From iPhone:</strong> the raised card gains generous perimeter space while its interaction width remains controlled.</p>
+        </article>
+
+        <article class="concept portrait">
+          <header class="concept-meta"><div class="concept-title"><span class="concept-id">V3</span><h3>Panel returns to sheet</h3></div><p>Pick for the clearest adaptive relationship between orientations.</p></header>
+          <div class="ipad"><div class="screen light-screen split-status">
+            <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+            <div class="v3-layout"><section class="v3-brand brand-block"><div><div class="wordmark large"><strong>EXCEED</strong><small>BOX</small></div><h4 class="brand-headline">Welcome to the team workspace.</h4></div></section><section class="v3-panel"><form class="login-form" data-auth-form>
+              <div class="form-heading"><h4>Sign in</h4><p>ログイン</p></div><button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button><p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p><div class="divider">or</div>
+              <div class="fields"><label class="field"><span class="field-label">Email <small>メールアドレス</small></span><span class="field-shell"><input name="email" type="email" autocomplete="username" placeholder="name@exceed.ae" aria-label="Email"></span></label><label class="field password"><span class="field-label">Password <small>パスワード</small></span><span class="field-shell"><input name="password" type="password" autocomplete="current-password" placeholder="Enter password" aria-label="Password"><button class="eye-toggle" type="button" aria-label="Show password"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label></div><button class="primary-button" type="submit" disabled>Sign in<span class="ja">ログイン</span></button><div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div>
+            </form></section></div><span class="version">v1.0.0</span><span class="home-indicator"></span>
+          </div></div>
+          <p class="concept-note"><strong>From iPhone:</strong> portrait restores the familiar bottom sheet, while the wide state promotes it to a side panel.</p>
+        </article>
+
+        <article class="concept portrait">
+          <header class="concept-meta"><div class="concept-title"><span class="concept-id">V4</span><h3>Progressive, centred</h3></div><p>Pick for a guided, low-cognitive-load employee login.</p></header>
+          <div class="ipad"><div class="screen">
+            <div class="status-bar"><span>9:41&nbsp;&nbsp; Mon 17 Aug</span><span class="status-right">Wi-Fi&nbsp; <svg width="12" height="7" viewBox="0 0 12 7" aria-hidden="true"><path d="M1 2.3C3.9-.1 8.1-.1 11 2.3M3 4.2c1.7-1.4 4.3-1.4 6 0M5.2 6.1c.5-.4 1.1-.4 1.6 0" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><svg width="15" height="7" viewBox="0 0 15 7" aria-hidden="true"><rect x=".5" y=".5" width="12" height="6" rx="1.5" fill="none" stroke="currentColor"/><rect x="2" y="2" width="8.5" height="3" rx=".5" fill="currentColor"/><path d="M13.5 2.2h1v2.6h-1z" fill="currentColor"/></svg></span></div>
+            <div class="v4-layout"><form class="progressive dark-form" data-progressive data-step="1"><div class="progressive-top"><div class="wordmark"><strong>EXCEED</strong><small>BOX</small></div><div><div class="steps"><span class="step active"></span><span class="step"></span></div><span class="step-label">1 OF 2</span></div></div><h4 data-question>What’s your work email?</h4><p class="question-ja" data-question-ja>メールアドレスを入力してください</p>
+              <div class="google-door"><button class="google-button" type="button"><svg class="google-mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.55-.2-2.27H12v4.51h6.46a5.53 5.53 0 0 1-2.4 3.53v2.93h3.89c2.28-2.1 3.54-5.2 3.54-8.7z"/><path fill="#34A853" d="M12 24c3.24 0 5.96-1.07 7.95-2.9l-3.89-3.06c-1.08.72-2.46 1.15-4.06 1.15-3.13 0-5.78-2.11-6.73-4.95H1.26v3.04A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.24A7.22 7.22 0 0 1 4.9 12c0-.78.13-1.54.37-2.24V6.72H1.26A12 12 0 0 0 0 12c0 1.93.46 3.75 1.26 5.28l4.01-3.04z"/><path fill="#EA4335" d="M12 4.81c1.77 0 3.35.61 4.6 1.8l3.44-3.45A11.62 11.62 0 0 0 12 0 12 12 0 0 0 1.26 6.72l4.01 3.04C6.22 6.92 8.87 4.81 12 4.81z"/></svg><span class="button-copy">Continue with Google<small>Googleでログイン</small></span></button><p class="account-caption">Exceed accounts only · Exceedアカウントのみ</p></div><div class="divider">or</div>
+              <label class="field"><span class="field-label" data-field-label>Email <small>メールアドレス</small></span><span class="field-shell"><input name="progressive-input" type="email" autocomplete="username" placeholder="name@exceed.ae" aria-label="Email"><button class="eye-toggle" type="button" aria-label="Show password" hidden><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.7" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label><button class="primary-button" type="submit" disabled><span data-progressive-button>Continue</span><span class="ja" data-progressive-button-ja>次へ</span></button><div class="forgot-row"><a class="forgot" href="#">Forgot password? <small>パスワードをお忘れですか</small></a></div><button class="progressive-back" type="button">← Back / 戻る</button>
+            </form></div><span class="version">v1.0.0</span><span class="home-indicator"></span>
+          </div></div>
+          <p class="concept-note"><strong>From iPhone:</strong> the same one-field conversation is intentionally surrounded by space instead of stretched to fill the tablet.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('[data-auth-form]').forEach((form) => {
+      const email = form.querySelector('input[type="email"]');
+      const password = form.querySelector('input[type="password"]');
+      const submit = form.querySelector('.primary-button');
+      const update = () => { submit.disabled = !(email.value.trim() && password.value); };
+      email.addEventListener('input', update);
+      password.addEventListener('input', update);
+      form.addEventListener('submit', (event) => event.preventDefault());
+    });
+
+    document.querySelectorAll('.eye-toggle').forEach((button) => {
+      button.addEventListener('click', () => {
+        const input = button.closest('.field-shell').querySelector('input');
+        const revealing = input.type === 'password';
+        input.type = revealing ? 'text' : 'password';
+        button.setAttribute('aria-label', revealing ? 'Hide password' : 'Show password');
+      });
+    });
+
+    document.querySelectorAll('[data-progressive]').forEach((form) => {
+      const input = form.querySelector('input');
+      const submit = form.querySelector('.primary-button');
+      const back = form.querySelector('.progressive-back');
+      const eye = form.querySelector('.eye-toggle');
+      const steps = form.querySelectorAll('.step');
+      let savedEmail = '';
+
+      input.addEventListener('input', () => { submit.disabled = !input.value.trim(); });
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (form.dataset.step === '1' && input.value.trim()) {
+          savedEmail = input.value.trim();
+          form.dataset.step = '2';
+          form.querySelector('[data-question]').textContent = 'Enter your password';
+          form.querySelector('[data-question-ja]').textContent = 'パスワードを入力してください';
+          form.querySelector('[data-field-label]').innerHTML = 'Password <small>パスワード</small>';
+          form.querySelector('[data-progressive-button]').textContent = 'Sign in';
+          form.querySelector('[data-progressive-button-ja]').textContent = 'ログイン';
+          form.querySelector('.step-label').textContent = '2 OF 2';
+          steps[1].classList.add('active');
+          input.value = '';
+          input.type = 'password';
+          input.autocomplete = 'current-password';
+          input.placeholder = 'Enter password';
+          input.setAttribute('aria-label', 'Password');
+          eye.hidden = false;
+          submit.disabled = true;
+          input.focus();
+        }
+      });
+      back.addEventListener('click', () => {
+        form.dataset.step = '1';
+        form.querySelector('[data-question]').textContent = 'What’s your work email?';
+        form.querySelector('[data-question-ja]').textContent = 'メールアドレスを入力してください';
+        form.querySelector('[data-field-label]').innerHTML = 'Email <small>メールアドレス</small>';
+        form.querySelector('[data-progressive-button]').textContent = 'Continue';
+        form.querySelector('[data-progressive-button-ja]').textContent = '次へ';
+        form.querySelector('.step-label').textContent = '1 OF 2';
+        steps[1].classList.remove('active');
+        input.type = 'email';
+        input.autocomplete = 'username';
+        input.placeholder = 'name@exceed.ae';
+        input.setAttribute('aria-label', 'Email');
+        input.value = savedEmail;
+        eye.hidden = true;
+        submit.disabled = !savedEmail;
+        input.focus();
+      });
+    });
+
+    document.querySelectorAll('a[href="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => event.preventDefault());
+    });
+  </script>
+</body>
+</html>

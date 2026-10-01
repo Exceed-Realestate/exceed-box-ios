@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": ".test-build",
+    "rootDir": "src",
+    "types": ["node"]
+  },
+  "include": ["src/fieldGuesser.ts", "src/fieldGuesser.types.ts", "src/ExpoTextRecognition.types.ts", "src/__tests__/fieldGuesser.test.ts"]
+}

@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exceed Box — icon variations v2</title>
+  <style>
+    :root {
+      --navy: #002e52;
+      --yellow: #ffd84d;
+      --gold: #f0b429;
+      --charcoal: #15171c;
+      --surface: #1c1f26;
+      --page: #25282e;
+      --paper: #f6f7f9;
+      --white: #ffffff;
+      --muted: #aeb4bf;
+      --line: rgba(255,255,255,.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--page); }
+
+    body {
+      margin: 0;
+      color: var(--white);
+      background: var(--page);
+      font-family: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: min(1480px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 72px 0 96px;
+    }
+
+    .eyebrow,
+    .card-number,
+    .source-label,
+    .scale-label,
+    .section-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 56px;
+      align-items: end;
+      padding: 0 0 56px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow { color: var(--yellow); }
+
+    h1 {
+      max-width: 760px;
+      margin: 14px 0 12px;
+      font-family: Baskerville, "Times New Roman", serif;
+      font-size: clamp(52px, 7vw, 104px);
+      font-weight: 400;
+      line-height: .88;
+      letter-spacing: -.055em;
+    }
+
+    .intro {
+      max-width: 590px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .source-block {
+      display: grid;
+      grid-template-columns: 200px;
+      gap: 12px;
+    }
+
+    .source-logo {
+      display: block;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,.16);
+    }
+
+    .source-label {
+      display: flex;
+      justify-content: space-between;
+      color: #d8dbe1;
+    }
+
+    .source-label span:last-child { color: #818894; }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 54px 0 20px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+
+    .section-kicker { color: #8f96a1; }
+
+    .variation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .card {
+      min-width: 0;
+      padding: 32px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .card-top {
+      display: grid;
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .icon-svg {
+      display: block;
+      flex: none;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
+    }
+
+    .icon-svg.small { filter: none; }
+
+    .card-number { color: var(--yellow); }
+
+    .card h3 {
+      margin: 9px 0 9px;
+      font-size: 20px;
+      font-weight: 650;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+    }
+
+    .lineage {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .scales {
+      display: flex;
+      align-items: end;
+      gap: 14px;
+      min-height: 146px;
+      margin-top: 27px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .scale-item {
+      display: grid;
+      justify-items: center;
+      gap: 7px;
+    }
+
+    .scale-label {
+      color: #777f8b;
+      font-size: 9px;
+      letter-spacing: .12em;
+    }
+
+    .light-proof {
+      margin-top: 72px;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--charcoal);
+    }
+
+    .light-proof-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 26px 16px;
+      border-bottom: 1px solid #dfe2e6;
+    }
+
+    .light-proof h2 {
+      margin: 0;
+      font-family: Baskerville, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 400;
+      letter-spacing: -.02em;
+    }
+
+    .light-proof .section-kicker { color: #6f7680; }
+
+    .proof-row {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(80px, 1fr));
+      gap: 18px;
+      padding: 26px;
+      overflow-x: auto;
+    }
+
+    .proof-item {
+      display: grid;
+      justify-items: center;
+      gap: 9px;
+    }
+
+    .proof-item span {
+      color: #737983;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .phone-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      gap: 72px;
+      align-items: center;
+      max-width: 1040px;
+      margin: 94px auto 0;
+    }
+
+    .phone-copy h2 {
+      max-width: 500px;
+      margin: 14px 0 18px;
+      font-family: Baskerville, "Times New Roman", serif;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 400;
+      line-height: .96;
+      letter-spacing: -.045em;
+    }
+
+    .phone-copy p {
+      max-width: 470px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .phone {
+      width: 390px;
+      min-height: 744px;
+      padding: 12px;
+      border: 1px solid #5e6269;
+      border-radius: 58px;
+      background: #090a0c;
+      box-shadow: 0 34px 80px rgba(0,0,0,.42);
+    }
+
+    .screen {
+      position: relative;
+      min-height: 718px;
+      padding: 25px 18px 30px;
+      overflow: hidden;
+      border-radius: 47px;
+      background: #1c1f26;
+    }
+
+    .screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .28;
+      background-image:
+        linear-gradient(135deg, transparent 48%, rgba(255,255,255,.035) 49%, rgba(255,255,255,.035) 51%, transparent 52%);
+      background-size: 72px 72px;
+      pointer-events: none;
+    }
+
+    .island {
+      position: relative;
+      width: 116px;
+      height: 31px;
+      margin: 0 auto;
+      border-radius: 18px;
+      background: #050506;
+    }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      margin: -24px 10px 54px;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .status span:last-child { letter-spacing: .08em; }
+
+    .home-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 34px 13px;
+    }
+
+    .app {
+      display: grid;
+      justify-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .placeholder {
+      width: 60px;
+      height: 60px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      background: #555a63;
+    }
+
+    .placeholder::before {
+      content: "";
+      display: block;
+      width: 23px;
+      height: 23px;
+      margin: 18px auto;
+      border: 2px solid rgba(255,255,255,.18);
+      transform: rotate(45deg);
+    }
+
+    .app-name {
+      width: 76px;
+      overflow: hidden;
+      color: #f7f7f8;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      line-height: 1.2;
+      text-align: center;
+      text-overflow: ellipsis;
+      text-shadow: 0 1px 3px rgba(0,0,0,.85);
+      white-space: nowrap;
+    }
+
+    .dock {
+      position: absolute;
+      right: 16px;
+      bottom: 18px;
+      left: 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      justify-items: center;
+      padding: 13px 9px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 29px;
+      background: rgba(126,130,138,.26);
+    }
+
+    .dock .placeholder { width: 54px; height: 54px; }
+
+    .dock .placeholder::before { margin: 15px auto; }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 80px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: #858c97;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1180px) {
+      .variation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 820px) {
+      .page { width: min(100% - 28px, 620px); padding-top: 34px; }
+      .masthead { grid-template-columns: 1fr; align-items: start; }
+      .source-block { grid-template-columns: 160px; }
+      .source-logo { width: 160px; height: 160px; }
+      .variation-grid { grid-template-columns: 1fr; }
+      .card { padding: 24px; }
+      .phone-section { grid-template-columns: 1fr; }
+      .phone { justify-self: center; }
+    }
+
+    @media (max-width: 480px) {
+      .page { width: 100%; padding: 28px 14px 60px; }
+      .card-top { grid-template-columns: 150px minmax(0, 1fr); gap: 18px; }
+      .card-top .icon-svg { width: 150px; height: 150px; }
+      .scales { gap: 9px; overflow-x: auto; }
+      .phone { width: 360px; transform: scale(.94); transform-origin: top center; margin-bottom: -42px; }
+      .footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <div>
+        <div class="eyebrow">Exceed Real Estate · Icon study 02</div>
+        <h1>One mark.<br>Twelve moves.</h1>
+        <p class="intro">Every candidate begins with the company’s open diamond, mitred stepped form, or outward-breaking gesture. Flat colour, exact angles, and no borrowed metaphors.</p>
+      </div>
+      <figure class="source-block">
+        <img class="source-logo" src="exceed_logo.jpg" width="200" height="200" alt="Original Exceed Real Estate logo: a white angular open diamond mark on navy">
+        <figcaption class="source-label"><span>Source mark</span><span>Original</span></figcaption>
+      </figure>
+    </header>
+
+    <section aria-labelledby="variations-title">
+      <div class="section-head">
+        <h2 id="variations-title">Twelve derived variations</h2>
+        <div class="section-kicker">200px review · 120 / 80 / 60px proof</div>
+      </div>
+      <div class="variation-grid" id="variation-grid"></div>
+    </section>
+
+    <section class="light-proof" aria-labelledby="light-title">
+      <div class="light-proof-head">
+        <h2 id="light-title">Light-background strip</h2>
+        <div class="section-kicker">All candidates · 80px</div>
+      </div>
+      <div class="proof-row" id="proof-row"></div>
+    </section>
+
+    <section class="phone-section" aria-labelledby="phone-title">
+      <div class="phone-copy">
+        <div class="eyebrow">Final context check</div>
+        <h2 id="phone-title">Recognition at a glance.</h2>
+        <p>The untouched corporate mark, the internal-tool colourway, and the two-tone bridge shown among ordinary home-screen noise.</p>
+      </div>
+      <div class="phone" aria-label="Simulated iPhone home screen showing three Exceed Box icon finalists">
+        <div class="screen">
+          <div class="island"></div>
+          <div class="status"><span>9:41</span><span>5G&nbsp;&nbsp;●</span></div>
+          <div class="home-grid" id="home-grid"></div>
+          <div class="dock">
+            <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer"><span>Exceed Box · App icon development</span><span>Geometry traced from supplied corporate mark</span></footer>
+  </main>
+
+  <script>
+    const C = {
+      navy: '#002E52', white: '#FFFFFF', yellow: '#FFD84D', gold: '#F0B429',
+      charcoal: '#15171C', surface: '#1C1F26'
+    };
+
+    // Traced directly from exceed_logo_large.png. This silhouette is the source of truth.
+    const tracedMark = `M444 148 L152 446 L450 735 L737 445 L683 445 L446 684 L205 441 L408 238 L413 242 L408 402 L325 482 L405 563 L521 446 L532 451 L548 471 L431 589 L458 616 L602 477 L603 472 L522 394 L406 508 L378 483 L446 414 Z`;
+    const tracedTransform = `translate(-56 -56) scale(1.28)`;
+    const squircle = `M230 0 H794 C930 0 1024 94 1024 230 V794 C1024 930 930 1024 794 1024 H230 C94 1024 0 930 0 794 V230 C0 94 94 0 230 0 Z`;
+
+    const path = (d, color, width, extra = '') =>
+      `<path d="${d}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="butt" stroke-linejoin="miter" ${extra}/>`;
+
+    const fullMark = (color, extra = '') =>
+      `<path d="${tracedMark}" fill="${color}" transform="${tracedTransform}" ${extra}/>`;
+
+    const openDiamond = (color, width = 72, extra = '') =>
+      path('M506 154 L170 490 L506 826 L786 546', color, width, extra);
+
+    const escapeChevron = (color, width = 72, extra = '') =>
+      path('M650 532 L782 400 L866 484', color, width, extra);
+
+    const steppedE = (color, width = 72, extra = '') =>
+      path('M500 172 L500 420 L390 530 L478 618 L602 494 L520 412 L406 526', color, width, extra);
+
+    const variations = [
+      {
+        name: 'Corporate, Optically Set',
+        lineage: 'The complete source silhouette, untouched.',
+        bg: C.navy,
+        art: () => fullMark(C.white)
+      },
+      {
+        name: 'Internal Tool-Family Mark',
+        lineage: 'The complete source mark in tool colours.',
+        bg: C.charcoal,
+        art: () => fullMark(C.yellow)
+      },
+      {
+        name: 'Open Diamond Signal',
+        lineage: 'Open diamond and escaping chevron only.',
+        bg: C.navy,
+        art: () => openDiamond(C.white, 78) + escapeChevron(C.white, 78)
+      },
+      {
+        name: 'Contained Box Cell',
+        lineage: 'The diamond becomes a one-cell container.',
+        bg: C.charcoal,
+        art: () => openDiamond(C.white, 72) + `<polygon points="512,360 652,500 512,640 372,500" fill="${C.yellow}"/>` + escapeChevron(C.white, 72)
+      },
+      {
+        name: 'Escape Gesture Enlarged',
+        lineage: 'The outward chevron, cropped and amplified.',
+        bg: C.navy,
+        art: () => path('M118 784 L566 336 L884 654', C.white, 132)
+      },
+      {
+        name: 'White / Yellow Break',
+        lineage: 'Source silhouette with its exit highlighted.',
+        bg: C.navy,
+        art: () => fullMark(C.white) + path('M515 820 L806 529 L884 529', C.yellow, 66)
+      },
+      {
+        name: 'Yellow Field Knockout',
+        lineage: 'The whole source silhouette reversed out.',
+        bg: C.yellow,
+        art: () => fullMark(C.charcoal)
+      },
+      {
+        name: 'Inner Stepped E',
+        lineage: 'The source mark’s inner stepped form alone.',
+        bg: C.charcoal,
+        art: () => `<g transform="translate(-34 -34) scale(1.07)">${steppedE(C.yellow, 94)}</g>`
+      },
+      {
+        name: 'Heavy-Duty Open Diamond',
+        lineage: 'The open diamond thickened for 60px.',
+        bg: C.navy,
+        art: () => openDiamond(C.white, 112) + escapeChevron(C.white, 112)
+      },
+      {
+        name: 'Squared App Sibling',
+        lineage: 'The complete diamond rotated back to square.',
+        bg: C.charcoal,
+        art: () => `<g transform="rotate(-45 512 512) translate(54 8) scale(.90)">${fullMark(C.white)}</g>` + path('M740 240 L852 240 L852 352', C.yellow, 62)
+      },
+      {
+        name: 'Receding Lead Stack',
+        lineage: 'Three receding diamonds; top breaks open.',
+        bg: C.navy,
+        art: () =>
+          `<g opacity=".28" transform="translate(-112 112) scale(.92)">${openDiamond(C.white, 62)}</g>` +
+          `<g opacity=".55" transform="translate(-58 58) scale(.92)">${openDiamond(C.white, 62)}</g>` +
+          `<g transform="translate(-4 -8) scale(.92)">${openDiamond(C.white, 76) + escapeChevron(C.white, 76)}</g>`
+      },
+      {
+        name: 'Double Exceed Gesture',
+        lineage: 'The source exit gesture repeated twice.',
+        bg: C.charcoal,
+        art: () => fullMark(C.white) + path('M500 800 L746 554 L820 554', C.yellow, 58) + path('M600 844 L846 598 L920 598', C.yellow, 58)
+      }
+    ];
+
+    function iconSvg(index, size, className = '') {
+      const item = variations[index];
+      const id = `mask-${index}-${size}-${Math.random().toString(36).slice(2, 8)}`;
+      return `<svg class="icon-svg ${className}" width="${size}" height="${size}" viewBox="0 0 1024 1024" role="img" aria-label="${item.name} app icon">
+        <defs><clipPath id="${id}"><path d="${squircle}"/></clipPath></defs>
+        <g clip-path="url(#${id})">
+          <rect width="1024" height="1024" fill="${item.bg}"/>
+          ${item.art()}
+        </g>
+      </svg>`;
+    }
+
+    const grid = document.getElementById('variation-grid');
+    variations.forEach((item, index) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-top">
+          ${iconSvg(index, 200)}
+          <div>
+            <div class="card-number">${String(index + 1).padStart(2, '0')}</div>
+            <h3>${item.name}</h3>
+            <p class="lineage">${item.lineage}</p>
+          </div>
+        </div>
+        <div class="scales" aria-label="${item.name} shown at 120, 80, and 60 pixels">
+          ${[120, 80, 60].map(size => `<div class="scale-item">${iconSvg(index, size, 'small')}<span class="scale-label">${size}px</span></div>`).join('')}
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    const proof = document.getElementById('proof-row');
+    variations.forEach((_, index) => {
+      const item = document.createElement('div');
+      item.className = 'proof-item';
+      item.innerHTML = `${iconSvg(index, 80, 'small')}<span>${String(index + 1).padStart(2, '0')}</span>`;
+      proof.appendChild(item);
+    });
+
+    const selected = new Map([[1, 0], [6, 1], [10, 5]]);
+    const home = document.getElementById('home-grid');
+    for (let position = 0; position < 12; position++) {
+      const app = document.createElement('div');
+      app.className = 'app';
+      if (selected.has(position)) {
+        app.innerHTML = `${iconSvg(selected.get(position), 60, 'small')}<div class="app-name">Exceed Box</div>`;
+      } else {
+        app.innerHTML = `<div class="placeholder"></div><div class="app-name">Workspace</div>`;
+      }
+      home.appendChild(app);
+    }
+  </script>
+</body>
+</html>
